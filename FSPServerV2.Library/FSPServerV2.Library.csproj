@@ -71,6 +71,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConnectionTest.cs" />
     <Compile Include="Controllers\ConnectController.cs" />
     <Compile Include="Controllers\OffsetsController.cs" />
     <Compile Include="Helpers\OffsetHelpers.cs" />

@@ -23,10 +23,12 @@ namespace FSPServerV2.FormApp
             }
             else
             {
+                StartApp.Start();
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 Application.Run(new MainForm());
                 mutex.ReleaseMutex();
+                
             }
         }
     }

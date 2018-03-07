@@ -47,10 +47,20 @@ namespace FSPServerV2.Controllers
             try
             {
                 log.Info("Received OpenFSUIPC Connection call");
-
-                FSUIPCConnection.Open();
                 ConnectResponse resp = new ConnectResponse();
-                resp.Message = "Connection Opened";
+
+                if (FSUIPCConnection.IsOpen)
+                {
+                    log.Info("Connection already is open");
+                    resp.Message = "Connection is open";
+                }
+                else
+                {
+                    log.Info("Opening connection..");
+
+                    FSUIPCConnection.Open();
+                    resp.Message = "Connection Opened";
+                }
 
                 FSPOffset _offset = OffsetHelpers.setOffset(15616, "String", "Connect");
                 FSUIPCConnection.Process("Connect");
