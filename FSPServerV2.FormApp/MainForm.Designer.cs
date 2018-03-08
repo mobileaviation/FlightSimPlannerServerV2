@@ -38,6 +38,7 @@
             this.IPAddressTextBox = new System.Windows.Forms.TextBox();
             this.FSUIPCStatusCheckTextBox = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.serverStatusLbl = new System.Windows.Forms.Label();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,19 +56,19 @@
             this.statusToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 70);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(107, 48);
             // 
             // statusToolStripMenuItem
             // 
             this.statusToolStripMenuItem.Name = "statusToolStripMenuItem";
-            this.statusToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.statusToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.statusToolStripMenuItem.Text = "&Status";
             this.statusToolStripMenuItem.Click += new System.EventHandler(this.statusToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(106, 22);
             this.exitToolStripMenuItem.Text = "&Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -91,7 +92,7 @@
             // FSUIPCStatusCheckTextBox
             // 
             this.FSUIPCStatusCheckTextBox.Enabled = false;
-            this.FSUIPCStatusCheckTextBox.Location = new System.Drawing.Point(13, 70);
+            this.FSUIPCStatusCheckTextBox.Location = new System.Drawing.Point(12, 112);
             this.FSUIPCStatusCheckTextBox.Multiline = true;
             this.FSUIPCStatusCheckTextBox.Name = "FSUIPCStatusCheckTextBox";
             this.FSUIPCStatusCheckTextBox.Size = new System.Drawing.Size(259, 48);
@@ -99,7 +100,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(13, 41);
+            this.button1.Location = new System.Drawing.Point(13, 83);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(259, 23);
             this.button1.TabIndex = 4;
@@ -107,11 +108,20 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // serverStatusLbl
+            // 
+            this.serverStatusLbl.Location = new System.Drawing.Point(12, 38);
+            this.serverStatusLbl.Name = "serverStatusLbl";
+            this.serverStatusLbl.Size = new System.Drawing.Size(260, 42);
+            this.serverStatusLbl.TabIndex = 5;
+            this.serverStatusLbl.Text = "Local IPAddress:";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 132);
+            this.ClientSize = new System.Drawing.Size(284, 172);
+            this.Controls.Add(this.serverStatusLbl);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.FSUIPCStatusCheckTextBox);
             this.Controls.Add(this.IPAddressTextBox);
@@ -138,6 +148,7 @@
         private System.Windows.Forms.TextBox IPAddressTextBox;
         private System.Windows.Forms.TextBox FSUIPCStatusCheckTextBox;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label serverStatusLbl;
     }
 }
 

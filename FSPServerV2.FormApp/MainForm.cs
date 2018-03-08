@@ -32,6 +32,19 @@ namespace FSPServerV2.FormApp
             CheckConnection();
         }
 
+        public Boolean serverRunning;
+        public String startupMessage;
+
+        public void SetServerStatus()
+        {
+            serverStatusLbl.Text = startupMessage;
+            if (!serverRunning)
+            {
+                serverStatusLbl.ForeColor = Color.Red;
+                this.WindowState = FormWindowState.Normal;
+            }
+        }
+
         private void statusToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Normal;

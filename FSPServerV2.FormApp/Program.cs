@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -9,7 +10,7 @@ namespace FSPServerV2.FormApp
 {
     static class Program
     {
-        static Mutex mutex = new Mutex(false, "Flight Sim Planner V2 Server Mutex");
+        //static Mutex mutex = new Mutex(false, "Flight Sim Planner V2 Server Mutex");
 
         /// <summary>
         /// The main entry point for the application.
@@ -17,19 +18,32 @@ namespace FSPServerV2.FormApp
         [STAThread]
         static void Main()
         {
-            if (!mutex.WaitOne(TimeSpan.FromSeconds(2), false))
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            MainForm form = new MainForm();
+
+
+            if (IsAdministrator())
             {
-                return;
+                form.serverRunning = StartApp.Start();
+                form.startupMessage = "Server is " + ((form.serverRunning) ? "started" : "not started");
             }
             else
             {
-                StartApp.Start();
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new MainForm());
-                mutex.ReleaseMutex();
-                
+                form.serverRunning = false;
+                form.startupMessage = "The app has no Administrator priviledges, Please start 'as-Administrator'";
             }
+
+            form.SetServerStatus();
+
+            Application.Run(form);
+
+        }
+
+        static Boolean IsAdministrator()
+        {
+            return (new WindowsPrincipal(WindowsIdentity.GetCurrent()))
+                .IsInRole(WindowsBuiltInRole.Administrator);
         }
     }
 }
