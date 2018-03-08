@@ -43,6 +43,24 @@ namespace FSPServerV2.FormApp
                 serverStatusLbl.ForeColor = Color.Red;
                 this.WindowState = FormWindowState.Normal;
             }
+            else
+            {
+                Int32 port = Properties.Settings.Default.Port;
+                string baseAddress = "http://localhost:" + port.ToString() + "/";
+                ServerTest serverTest = new ServerTest(baseAddress);
+                String testOut = serverTest.Test();
+                if (testOut== "Error")
+                {
+                    serverStatusLbl.ForeColor = Color.Red;
+                    this.WindowState = FormWindowState.Normal;
+                    serverStatusLbl.Text = "Server responsed Error: " + testOut;
+                }
+                else
+                {
+                    serverStatusLbl.Text = "Server responsed OK: " + testOut;
+                }
+                
+            }
         }
 
         private void statusToolStripMenuItem_Click(object sender, EventArgs e)
