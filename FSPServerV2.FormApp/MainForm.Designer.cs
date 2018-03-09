@@ -39,15 +39,21 @@
             this.FSUIPCStatusCheckTextBox = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.serverStatusLbl = new System.Windows.Forms.Label();
+            this.tcpPortTextBox = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.contextMenuStrip1.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // notifyIcon1
             // 
+            this.notifyIcon1.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.notifyIcon1.BalloonTipText = "Flight Sim Planner FSUIPC Server V2";
             this.notifyIcon1.BalloonTipTitle = "FSP Server V2";
             this.notifyIcon1.ContextMenuStrip = this.contextMenuStrip1;
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
-            this.notifyIcon1.Text = "FspNotifyIcon";
+            this.notifyIcon1.Text = "Flight Sim Planner FSUIPC Server V2";
             this.notifyIcon1.Visible = true;
             // 
             // contextMenuStrip1
@@ -92,7 +98,7 @@
             // FSUIPCStatusCheckTextBox
             // 
             this.FSUIPCStatusCheckTextBox.Enabled = false;
-            this.FSUIPCStatusCheckTextBox.Location = new System.Drawing.Point(12, 112);
+            this.FSUIPCStatusCheckTextBox.Location = new System.Drawing.Point(13, 135);
             this.FSUIPCStatusCheckTextBox.Multiline = true;
             this.FSUIPCStatusCheckTextBox.Name = "FSUIPCStatusCheckTextBox";
             this.FSUIPCStatusCheckTextBox.Size = new System.Drawing.Size(259, 48);
@@ -100,7 +106,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(13, 83);
+            this.button1.Location = new System.Drawing.Point(13, 106);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(259, 23);
             this.button1.TabIndex = 4;
@@ -110,18 +116,46 @@
             // 
             // serverStatusLbl
             // 
-            this.serverStatusLbl.Location = new System.Drawing.Point(12, 38);
+            this.serverStatusLbl.Location = new System.Drawing.Point(4, 3);
             this.serverStatusLbl.Name = "serverStatusLbl";
-            this.serverStatusLbl.Size = new System.Drawing.Size(260, 42);
+            this.serverStatusLbl.Size = new System.Drawing.Size(249, 37);
             this.serverStatusLbl.TabIndex = 5;
             this.serverStatusLbl.Text = "Local IPAddress:";
+            // 
+            // tcpPortTextBox
+            // 
+            this.tcpPortTextBox.Enabled = false;
+            this.tcpPortTextBox.Location = new System.Drawing.Point(105, 32);
+            this.tcpPortTextBox.Name = "tcpPortTextBox";
+            this.tcpPortTextBox.Size = new System.Drawing.Size(43, 20);
+            this.tcpPortTextBox.TabIndex = 7;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(12, 35);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(64, 13);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Tcp-IP Port:";
+            // 
+            // panel1
+            // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.serverStatusLbl);
+            this.panel1.Location = new System.Drawing.Point(12, 58);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(260, 42);
+            this.panel1.TabIndex = 8;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 172);
-            this.Controls.Add(this.serverStatusLbl);
+            this.ClientSize = new System.Drawing.Size(284, 195);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.tcpPortTextBox);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.FSUIPCStatusCheckTextBox);
             this.Controls.Add(this.IPAddressTextBox);
@@ -133,6 +167,7 @@
             this.Text = "FSP Server Status";
             this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
             this.contextMenuStrip1.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -149,6 +184,9 @@
         private System.Windows.Forms.TextBox FSUIPCStatusCheckTextBox;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label serverStatusLbl;
+        private System.Windows.Forms.TextBox tcpPortTextBox;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 

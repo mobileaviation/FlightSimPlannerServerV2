@@ -28,6 +28,7 @@ namespace FSPServerV2.FormApp
                       select a;
 
             IPAddressTextBox.Text = (add.Count() > 0) ? add.ElementAt(0).ToString() : "Unknown!!";
+            tcpPortTextBox.Text = Properties.Settings.Default.Port.ToString();
 
             CheckConnection();
         }
