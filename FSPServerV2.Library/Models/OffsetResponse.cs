@@ -12,5 +12,6 @@ namespace FSPServerV2.Models
         public Datatype DataType { get; set; }
         public string DataGroup { get; set; }
         public string Value { get; set; }
+        public string Version { get; set; }
     }
 }

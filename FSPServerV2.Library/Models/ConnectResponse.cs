@@ -11,5 +11,6 @@ namespace FSPServerV2.Models
         public string Message { get; set; }
         public string Simulator { get; set; }
         public string Aircraft { get; set; }
+        public string Version { get; set; }
     }
 }

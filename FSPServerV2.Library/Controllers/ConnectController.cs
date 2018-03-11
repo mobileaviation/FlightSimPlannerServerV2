@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Net;
 using FSPServerV2.Helpers;
 using NLog;
+using System.Reflection;
 
 namespace FSPServerV2.Controllers
 {
@@ -24,13 +25,17 @@ namespace FSPServerV2.Controllers
         [HttpGet]
         public string Get()
         {
+            String version = FSPServerV2.Library.Properties.Version.getVersion();
+
+
+            String resp = "Server Version: " + version + " Sim Connected : ";
             if (FSUIPCConnection.IsOpen)
             {
-                return FSUIPCConnection.FlightSimVersionConnected.ToString();
+                return resp + FSUIPCConnection.FlightSimVersionConnected;;
             }
             else
             {
-                return "Not Connected!";
+                return resp + "Not Connected!";
             }
         }
 
@@ -52,7 +57,7 @@ namespace FSPServerV2.Controllers
                 if (FSUIPCConnection.IsOpen)
                 {
                     log.Info("Connection already is open");
-                    resp.Message = "Connection is open";
+                    resp.Message = "Connection Opened";
                 }
                 else
                 {
@@ -65,6 +70,8 @@ namespace FSPServerV2.Controllers
                 FSPOffset _offset = OffsetHelpers.setOffset(15616, "String", "Connect");
                 FSUIPCConnection.Process("Connect");
                 OffsetResponse _resp = OffsetHelpers.setOffsetResponse(_offset);
+
+                resp.Version = FSPServerV2.Library.Properties.Version.getVersion();
 
                 resp.Simulator = FSUIPCConnection.FlightSimVersionConnected.ToString();
                 resp.Aircraft = _resp.Value;

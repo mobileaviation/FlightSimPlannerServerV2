@@ -31,21 +31,30 @@ namespace FSPServerV2.Controllers
                     {
                         try
                         {
+                            string group = offsets.First().DataGroup;
+                            FSUIPCConnection.DeleteGroup(group);
+
                             List<OffsetResponse> resp = new List<OffsetResponse>();
                             List<FSPOffset> _offsets = new List<FSPOffset>();
-                            string group = offsets.First().DataGroup;
-
+                            
                             foreach (OffsetRequest req in offsets)
                             {
                                 _offsets.Add(OffsetHelpers.setOffset(req.Address, req.DataType.ToString(), group));
                             }
 
+                            
                             FSUIPCConnection.Process(group);
 
                             foreach (FSPOffset _offset in _offsets)
                             {
                                 resp.Add(OffsetHelpers.setOffsetResponse(_offset));
                             }
+
+                            //log.Debug("Response[0] {0}", resp[0].Value);
+                            //log.Debug("Response[1] {0}", resp[1].Value);
+                            //log.Debug("Response[2] {0}", resp[2].Value);
+                            //log.Debug("Response[3] {0}", resp[3].Value);
+                            //log.Debug("Response[4] {0}", resp[4].Value);
 
                             return Request.CreateResponse(HttpStatusCode.OK, resp);
                         }
