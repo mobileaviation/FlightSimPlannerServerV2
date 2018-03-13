@@ -42,7 +42,6 @@ namespace FSPServerV2.Controllers
                                 _offsets.Add(OffsetHelpers.setOffset(req.Address, req.DataType.ToString(), group));
                             }
 
-                            
                             FSUIPCConnection.Process(group);
 
                             foreach (FSPOffset _offset in _offsets)
@@ -86,6 +85,7 @@ namespace FSPServerV2.Controllers
         {
             if (FSUIPCConnection.IsOpen)
             {
+                FSUIPCConnection.DeleteGroup(datagroup);
                 FSPOffset _offset = OffsetHelpers.setOffset(offset, datatype, datagroup);
                 FSUIPCConnection.Process(datagroup);
                 OffsetResponse resp = OffsetHelpers.setOffsetResponse(_offset);

@@ -14,9 +14,13 @@ namespace FSPServerV2.FormApp
 {
     public partial class MainForm : Form
     {
+        Boolean close;
+
         public MainForm()
         {
             InitializeComponent();
+
+            close = false;
 
             String strHostName = Dns.GetHostName();
             // Then using host name, get the IP address list..
@@ -86,7 +90,37 @@ namespace FSPServerV2.FormApp
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            close = true;
             Application.Exit();
+        }
+
+        private void notifyIcon1_DoubleClick(object sender, EventArgs e)
+        {
+            ShowInTaskbar = true;
+            notifyIcon1.Visible = false;
+            WindowState = FormWindowState.Normal;
+        }
+
+        private void MainForm_Resize(object sender, EventArgs e)
+        {
+            if (WindowState==FormWindowState.Minimized)
+            {
+                ShowIcon = true;
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(2000);
+            }
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = !close;
+            WindowState = FormWindowState.Minimized;
+
         }
     }
 }
