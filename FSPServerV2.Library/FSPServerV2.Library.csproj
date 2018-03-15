@@ -81,6 +81,9 @@
     <Compile Include="ConnectionTest.cs" />
     <Compile Include="Controllers\ConnectController.cs" />
     <Compile Include="Controllers\OffsetsController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
+    <Compile Include="Controllers\VersionController.cs" />
+    <Compile Include="Helpers\FSPFSUIPCConnection.cs" />
     <Compile Include="Helpers\OffsetHelpers.cs" />
     <Compile Include="Models\ConnectResponse.cs" />
     <Compile Include="Models\FSPOffsets.cs" />
@@ -91,6 +94,7 @@
     <Compile Include="Properties\Version.cs" />
     <Compile Include="ServerTest.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Tests\StaticTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

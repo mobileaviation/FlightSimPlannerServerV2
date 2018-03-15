@@ -1,16 +1,12 @@
 ﻿using FSPServerV2.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Http;
-using FSUIPC;
 using System.Net.Http;
 using System.Net;
 using FSPServerV2.Helpers;
 using NLog;
-using System.Reflection;
+using FSPServerV2.Library.Helpers;
 
 namespace FSPServerV2.Controllers
 {
@@ -29,9 +25,9 @@ namespace FSPServerV2.Controllers
 
 
             String resp = "Server Version: " + version + " Sim Connected : ";
-            if (FSUIPCConnection.IsOpen)
+            if (FSPFSUIPCConnection.IsOpen)
             {
-                return resp + FSUIPCConnection.FlightSimVersionConnected;;
+                return resp + FSPFSUIPCConnection.FlightSimVersionConnected;;
             }
             else
             {
@@ -54,7 +50,7 @@ namespace FSPServerV2.Controllers
                 log.Info("Received OpenFSUIPC Connection call");
                 ConnectResponse resp = new ConnectResponse();
 
-                if (FSUIPCConnection.IsOpen)
+                if (FSPFSUIPCConnection.IsOpen)
                 {
                     log.Info("Connection already is open");
                     resp.Message = "Connection Opened";
@@ -63,17 +59,17 @@ namespace FSPServerV2.Controllers
                 {
                     log.Info("Opening connection..");
 
-                    FSUIPCConnection.Open();
+                    FSPFSUIPCConnection.Open();
                     resp.Message = "Connection Opened";
                 }
 
-                FSPOffset _offset = OffsetHelpers.setOffset(15616, "String", "Connect");
-                FSUIPCConnection.Process("Connect");
+                FSPFSUIPCConnection.AddOffset(15616, Datatype.String, "Connect");
+                FSPOffset _offset = FSPFSUIPCConnection.Process("Connect").First();
                 OffsetResponse _resp = OffsetHelpers.setOffsetResponse(_offset);
 
                 resp.Version = FSPServerV2.Library.Properties.Version.getVersion();
 
-                resp.Simulator = FSUIPCConnection.FlightSimVersionConnected.ToString();
+                resp.Simulator = FSPFSUIPCConnection.FlightSimVersionConnected.ToString();
                 resp.Aircraft = _resp.Value;
 
                 return Request.CreateResponse(HttpStatusCode.OK, resp);
@@ -82,6 +78,7 @@ namespace FSPServerV2.Controllers
             {
                 Console.WriteLine(ee.Message);
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Connection Error", ee);
+                //return Request.CreateResponse(HttpStatusCode.OK, "error: " + ee.Message);
             }
         }
 
@@ -96,7 +93,7 @@ namespace FSPServerV2.Controllers
         {
             try
             {
-                FSUIPCConnection.Close();
+                FSPFSUIPCConnection.Close();
                 return Request.CreateResponse(HttpStatusCode.OK, "Connection Closed");
             }
             catch (Exception ee)

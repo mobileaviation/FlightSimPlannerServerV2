@@ -1,15 +1,13 @@
 ﻿using FSPServerV2.Helpers;
 using FSPServerV2.Models;
-using FSUIPC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Http;
 using NLog;
+using FSPServerV2.Library.Helpers;
 
 namespace FSPServerV2.Controllers
 {
@@ -18,12 +16,12 @@ namespace FSPServerV2.Controllers
     {
         [HttpPost]
         [Route("offsets")]
-        public HttpResponseMessage ReadOffsets([FromBody] List<OffsetRequest> offsets)
+        public HttpResponseMessage AddOffsets([FromBody] List<OffsetRequest> offsets)
         {
             Logger log = LogManager.GetCurrentClassLogger();
-            log.Info("Received OpenFSUIPC read offsets call");
+            log.Info("Received FSUIPC add offsets call");
 
-            if (FSUIPCConnection.IsOpen)
+            if (FSPFSUIPCConnection.IsOpen)
             {
                 if (offsets != null)
                 {
@@ -32,30 +30,15 @@ namespace FSPServerV2.Controllers
                         try
                         {
                             string group = offsets.First().DataGroup;
-                            FSUIPCConnection.DeleteGroup(group);
-
-                            List<OffsetResponse> resp = new List<OffsetResponse>();
-                            List<FSPOffset> _offsets = new List<FSPOffset>();
                             
                             foreach (OffsetRequest req in offsets)
                             {
-                                _offsets.Add(OffsetHelpers.setOffset(req.Address, req.DataType.ToString(), group));
+                                FSPFSUIPCConnection.AddOffset(req.Address, req.DataType, req.DataGroup);
                             }
 
-                            FSUIPCConnection.Process(group);
+                            HttpResponseMessage response = ReadOffsets(group);
 
-                            foreach (FSPOffset _offset in _offsets)
-                            {
-                                resp.Add(OffsetHelpers.setOffsetResponse(_offset));
-                            }
-
-                            //log.Debug("Response[0] {0}", resp[0].Value);
-                            //log.Debug("Response[1] {0}", resp[1].Value);
-                            //log.Debug("Response[2] {0}", resp[2].Value);
-                            //log.Debug("Response[3] {0}", resp[3].Value);
-                            //log.Debug("Response[4] {0}", resp[4].Value);
-
-                            return Request.CreateResponse(HttpStatusCode.OK, resp);
+                            return response;
                         }
                         catch (Exception ex)
                         {
@@ -80,17 +63,56 @@ namespace FSPServerV2.Controllers
         }
 
         [HttpGet]
+        [Route("offsets")]
+        public HttpResponseMessage ReadOffsets(string datagroup)
+        {
+            Logger log = LogManager.GetCurrentClassLogger();
+            log.Info("Received OpenFSUIPC read offsets call");
+
+            try
+            {
+                if (FSPFSUIPCConnection.IsOpen)
+                {
+                    List<FSPOffset> _offsets = FSPFSUIPCConnection.Process(datagroup);
+                    List<OffsetResponse> resp = new List<OffsetResponse>();
+
+                    foreach (FSPOffset _offset in _offsets)
+                    {
+                        resp.Add(OffsetHelpers.setOffsetResponse(_offset));
+                    }
+
+                    return Request.CreateResponse(HttpStatusCode.OK, resp);
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "FSUIPC Connection is not opened!");
+                }
+            }
+            catch(Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Exception Getting Offsets", ex);
+            }
+        }
+
+        [HttpGet]
         [Route("offset/{offset}")]
         public HttpResponseMessage ReadOffset(int offset, string datatype, string datagroup)
         {
-            if (FSUIPCConnection.IsOpen)
+            if (FSPFSUIPCConnection.IsOpen)
             {
-                FSUIPCConnection.DeleteGroup(datagroup);
-                FSPOffset _offset = OffsetHelpers.setOffset(offset, datatype, datagroup);
-                FSUIPCConnection.Process(datagroup);
-                OffsetResponse resp = OffsetHelpers.setOffsetResponse(_offset);
-                return Request.CreateResponse(HttpStatusCode.OK, resp);
-
+                try
+                {
+                    List<FSPOffset> offsets = FSPFSUIPCConnection.Process(datagroup);
+                    FSPOffset _offset = (from o in offsets
+                                         where o.Address == offset
+                                         select o).First();
+                    OffsetResponse resp = OffsetHelpers.setOffsetResponse(_offset);
+                    return Request.CreateResponse(HttpStatusCode.OK, resp);
+                }
+                catch(Exception ex)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Exception Getting Offset", ex);
+                }
             }
             else
             {
