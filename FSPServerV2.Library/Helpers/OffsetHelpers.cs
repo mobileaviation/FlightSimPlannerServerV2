@@ -22,6 +22,7 @@ namespace FSPServerV2.Helpers
             resp.DataGroup = offset.Datagroup;
             resp.DataType = offset.DataType;
             resp.Value = offset.Value;
+            //resp.Version = Library.Properties.Version.getVersion();
             return resp;
         }
     }

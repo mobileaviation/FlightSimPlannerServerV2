@@ -33,6 +33,7 @@ namespace FSPServerV2.Controllers
                             
                             foreach (OffsetRequest req in offsets)
                             {
+                                log.Debug("Add Offset: {0}, Type: {1}, Group: {2}", req.Address, req.DataType, req.DataGroup);
                                 FSPFSUIPCConnection.AddOffset(req.Address, req.DataType, req.DataGroup);
                             }
 

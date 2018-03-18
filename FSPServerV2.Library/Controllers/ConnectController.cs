@@ -49,7 +49,7 @@ namespace FSPServerV2.Controllers
             {
                 log.Info("Received OpenFSUIPC Connection call");
                 ConnectResponse resp = new ConnectResponse();
-
+           
                 if (FSPFSUIPCConnection.IsOpen)
                 {
                     log.Info("Connection already is open");
