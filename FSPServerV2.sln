@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSPServerV2.FormApp", "FSPS
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "FSPServerV2.Setup", "FSPServerV2.Setup\FSPServerV2.Setup.vdproj", "{CE2C68EB-58A3-445F-9230-3813103C9859}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSPServerV2.MapData", "FSPServerV2.MapData\FSPServerV2.MapData.csproj", "{363C60B4-D519-4E45-81DD-B6E3FD943BBB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{D9627540-8C82-4303-9E8A-C11E76792634}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CE2C68EB-58A3-445F-9230-3813103C9859}.Debug|Any CPU.ActiveCfg = Debug
 		{CE2C68EB-58A3-445F-9230-3813103C9859}.Release|Any CPU.ActiveCfg = Release
+		{363C60B4-D519-4E45-81DD-B6E3FD943BBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{363C60B4-D519-4E45-81DD-B6E3FD943BBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{363C60B4-D519-4E45-81DD-B6E3FD943BBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{363C60B4-D519-4E45-81DD-B6E3FD943BBB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

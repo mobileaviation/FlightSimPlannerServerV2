@@ -127,6 +127,10 @@
       <Project>{b83f3dc4-391f-4467-8c20-12179f5622b1}</Project>
       <Name>FSPServerV2.Library</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FSPServerV2.MapData\FSPServerV2.MapData.csproj">
+      <Project>{363c60b4-d519-4e45-81dd-b6e3fd943bbb}</Project>
+      <Name>FSPServerV2.MapData</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

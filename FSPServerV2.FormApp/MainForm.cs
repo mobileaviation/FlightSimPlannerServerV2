@@ -1,4 +1,5 @@
 ﻿using FSPServerV2.Library;
+using FSPServerV2.Maps.MapChruncher;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,6 +10,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace FSPServerV2.FormApp
 {
@@ -121,6 +123,32 @@ namespace FSPServerV2.FormApp
             e.Cancel = !close;
             WindowState = FormWindowState.Minimized;
 
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        private void readMapChruncherToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult result = OpenMapChruncherXMLDialog.ShowDialog();
+            if (result == DialogResult.OK) // Test result.
+            {
+                String filename = OpenMapChruncherXMLDialog.FileName;
+                Layers layers = new Layers();
+                layers.LoadFromFile(filename);
+            }
         }
     }
 }
