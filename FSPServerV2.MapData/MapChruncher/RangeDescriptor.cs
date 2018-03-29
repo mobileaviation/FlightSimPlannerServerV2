@@ -6,9 +6,15 @@ namespace FSPServerV2.Maps.MapChruncher
 {
     public class RangeDescriptor
     {
+        public RangeDescriptor()
+        {
+            TilePresent = false;
+        }
+
         public int TileX { get; set; }
         public int TileY { get; set; }
         public int Zoom { get; set; }
         public long QuadTreeLocation { get; set; }
+        public Boolean TilePresent { get; set; }
     }
 }

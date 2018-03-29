@@ -28,10 +28,11 @@ namespace FSPServerV2.Maps.MapChruncher
 
                 XElement mapRectangle = l.Element("SourceMapRecordList").Element("SourceMapRecord").Element("MapRectangle");
                 var e = mapRectangle.Elements("LatLon");
-                layer.MapRectangle.NE.lat = Convert.ToDouble(e.First().Attribute("lat").Value);
-                layer.MapRectangle.NE.lon = Convert.ToDouble(e.First().Attribute("lon").Value);
-                layer.MapRectangle.SW.lat = Convert.ToDouble(e.Last().Attribute("lat").Value);
-                layer.MapRectangle.SW.lon = Convert.ToDouble(e.Last().Attribute("lon").Value);
+
+                layer.MapRectangle.NE.lat = double.Parse(e.First().Attribute("lat").Value, System.Globalization.CultureInfo.InvariantCulture);
+                layer.MapRectangle.NE.lon = double.Parse(e.First().Attribute("lon").Value, System.Globalization.CultureInfo.InvariantCulture);
+                layer.MapRectangle.SW.lat = double.Parse(e.Last().Attribute("lat").Value, System.Globalization.CultureInfo.InvariantCulture);
+                layer.MapRectangle.SW.lon = double.Parse(e.Last().Attribute("lon").Value, System.Globalization.CultureInfo.InvariantCulture);
 
                 XElement thumbnail = l.Element("SourceMapRecordList").Element("SourceMapRecord");
                 var thumbnails = from t in thumbnail.Elements("Thumbnail")
@@ -54,7 +55,6 @@ namespace FSPServerV2.Maps.MapChruncher
                 foreach(XElement descriptor in rangeDescriptors)
                 {
                     RangeDescriptor rangeDescriptor = new RangeDescriptor();
-                    //<RangeDescriptor TileX="2" TileY="1" Zoom="2" QuadTreeLocation="12">
                     rangeDescriptor.TileX = Convert.ToInt32(descriptor.Attribute("TileX").Value);
                     rangeDescriptor.TileY = Convert.ToInt32(descriptor.Attribute("TileY").Value);
                     rangeDescriptor.Zoom = Convert.ToInt32(descriptor.Attribute("Zoom").Value);

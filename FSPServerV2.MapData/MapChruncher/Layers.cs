@@ -10,7 +10,7 @@ namespace FSPServerV2.Maps.MapChruncher
     {
         public Layers()
         {
-            LayerList = new List<Layer>();
+
         }
 
         public List<Layer> LayerList { get; set; }
@@ -19,7 +19,7 @@ namespace FSPServerV2.Maps.MapChruncher
         public void LoadFromFile(String filename)
         {
             XDocument mapChruncherDoc = XDocument.Load(filename);
-            List<Layer> layers = LayersFactory.BuildLayers(mapChruncherDoc);
+            LayerList = LayersFactory.BuildLayers(mapChruncherDoc);
             basePath = Path.GetDirectoryName(filename);
         }
     }
