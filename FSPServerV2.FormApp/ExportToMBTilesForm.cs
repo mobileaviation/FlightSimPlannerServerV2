@@ -1,13 +1,6 @@
 ﻿using FSPServerV2.Maps.MapChruncher;
 using FSPServerV2.Maps.MBTiles;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace FSPServerV2.FormApp
@@ -35,18 +28,55 @@ namespace FSPServerV2.FormApp
                 DialogResult result = SaveMBTilesFileDialog.ShowDialog();
                 if (result == DialogResult.OK) // Test result.
                 {
+                    exportProgressBar.Visible = true;
+                    SaveBtn.Enabled = false;
+                    CancelBtn.Enabled = false;
+                    MapsListBox.Enabled = false;
+
                     MBTiles mBTiles = new MBTiles();
-                    mBTiles.CreateDatabaseFile(SaveMBTilesFileDialog.FileName);
-                    mBTiles.OpenDatabase(SaveMBTilesFileDialog.FileName);
-                    mBTiles.CreateEmptyMBTilesTables();
 
-                    mBTiles.AddTiles(Layers.basePath, layer);
+                    mBTiles.progressEvent += MBTiles_progressEvent;
 
-                    mBTiles.CloseDatabase();
+                    if (!mBTiles.CreateDatabaseFile(SaveMBTilesFileDialog.FileName))
+                    {
+                        MessageBox.Show("Error creating MBTiles file!", "Error");
+                        this.Close();
+                        return;
+                    }
+                    if (!mBTiles.OpenDatabase(SaveMBTilesFileDialog.FileName))
+                    {
+                        MessageBox.Show("Error opening MBTiles file!", "Error");
+                        this.Close();
+                        return;
+                    }
+                    if (!mBTiles.CreateEmptyMBTilesTables())
+                    {
+                        MessageBox.Show("Error creating database tables in MBTiles file!", "Error");
+                        this.Close();
+                        return;
+                    }
+                    if (!mBTiles.AddTiles(Layers.basePath, layer))
+                    {
+                        MessageBox.Show("Error adding tiles to MBTiles file!", "Error");
+                        this.Close();
+                        return;
+                    }
+                    if (!mBTiles.CloseDatabase())
+                    {
+                        MessageBox.Show("Error closing MBTiles file!", "Error");
+                        this.Close();
+                        return;
+                    }
 
                     this.Close();
                 }
             }
+        }
+
+        private void MBTiles_progressEvent(object sender, int tileCount, int tileNumber)
+        {
+            exportProgressBar.Maximum = tileCount;
+            exportProgressBar.Value = tileNumber;
         }
     }
 }

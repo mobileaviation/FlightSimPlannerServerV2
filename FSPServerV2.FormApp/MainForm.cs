@@ -147,10 +147,16 @@ namespace FSPServerV2.FormApp
             {
                 String filename = OpenMapChruncherXMLDialog.FileName;
                 Layers layers = new Layers();
-                layers.LoadFromFile(filename);
-                ExportToMBTilesForm exportForm = new ExportToMBTilesForm();
-                exportForm.Layers = layers;
-                exportForm.ShowDialog();
+                if (layers.LoadFromFile(filename))
+                {
+                    ExportToMBTilesForm exportForm = new ExportToMBTilesForm();
+                    exportForm.Layers = layers;
+                    exportForm.ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Error loading MapChruncherMetadata.xml. Maybe version mismatch.", "Error!!");
+                }
             }
         }
     }

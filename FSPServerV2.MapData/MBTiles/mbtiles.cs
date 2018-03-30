@@ -9,6 +9,8 @@ using System.Text;
 
 namespace FSPServerV2.Maps.MBTiles
 {
+    public delegate void AddTilesProgressEventHandler(object sender, int tileCount, int tileNumber);
+
     public class MBTiles
     {
         public MBTiles()
@@ -19,6 +21,8 @@ namespace FSPServerV2.Maps.MBTiles
         private Logger log;
         private SQLiteConnection _connection;
         private String _connectionString;
+
+        public event AddTilesProgressEventHandler progressEvent;
 
         public Boolean CreateDatabaseFile(String filename)
         {
@@ -100,8 +104,11 @@ namespace FSPServerV2.Maps.MBTiles
 
                 try
                 {
+                    int tile = 0;
                     foreach (RangeDescriptor descriptor in layer.RangeDescriptors)
                     {
+                        if (progressEvent != null) progressEvent(this, layer.RangeDescriptors.Count, tile++);
+
                         String tileFilename = path + descriptor.QuadTreeLocation.ToString() + ext;
                         if (File.Exists(tileFilename))
                         {

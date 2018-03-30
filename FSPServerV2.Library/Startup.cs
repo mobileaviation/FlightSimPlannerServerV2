@@ -1,4 +1,6 @@
-﻿using Owin;
+﻿using Microsoft.Owin.FileSystems;
+using Microsoft.Owin.StaticFiles;
+using Owin;
 using System.Web.Http;
 
 namespace FSPServerV2
@@ -19,7 +21,19 @@ namespace FSPServerV2
                 defaults: new { id = RouteParameter.Optional }
             );
 
+            var physicalFileSystem = new PhysicalFileSystem(@"D:\maps\renders");
+            var options = new FileServerOptions
+            {
+                EnableDefaultFiles = true,
+                FileSystem = physicalFileSystem
+            };
+            options.StaticFileOptions.FileSystem = physicalFileSystem;
+            options.StaticFileOptions.ServeUnknownFileTypes = true;
+            options.DefaultFilesOptions.DefaultFileNames = new[] { "SamplePage.html" };
+            options.EnableDirectoryBrowsing = false;
+
             appBuilder.UseWebApi(config);
+            appBuilder.UseFileServer(options);
         }
     }
 }

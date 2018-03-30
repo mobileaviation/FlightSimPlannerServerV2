@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace FSPServerV2.Maps.MapChruncher
 {
@@ -27,41 +26,61 @@ namespace FSPServerV2.Maps.MapChruncher
 
         public String GetBounds()
         {
-            String bounds =  String.Format("{0:0.####},{1:0.####},{2:0.####},{3:0.####}", MapRectangle.NE.lon,
-                    MapRectangle.NE.lat,
-                    MapRectangle.SW.lon,
-                    MapRectangle.SW.lat);
+            String bounds =  String.Format("{0},{1},{2},{3}", 
+                MapRectangle.SW.lon.ToString("0.####", System.Globalization.CultureInfo.InvariantCulture),
+                    MapRectangle.SW.lat.ToString("0.####", System.Globalization.CultureInfo.InvariantCulture),
+                    MapRectangle.NE.lon.ToString("0.####", System.Globalization.CultureInfo.InvariantCulture),
+                    MapRectangle.NE.lat.ToString("0.####", System.Globalization.CultureInfo.InvariantCulture));
             return bounds;
         }
 
         public int GetMinZoom()
         {
-            var zoom = from z in RangeDescriptors
-                       where z.TilePresent
-                       orderby z.Zoom 
-                       group z by z.Zoom into zz
-                       select zz.Min(z => z.Zoom);
-            int rd = zoom.First();
-            return zoom.First();
+            try
+            {
+                var zoom = from z in RangeDescriptors
+                           where z.TilePresent
+                           orderby z.Zoom
+                           group z by z.Zoom into zz
+                           select zz.Min(z => z.Zoom);
+                int rd = zoom.First();
+                return zoom.First();
+            }
+            catch (Exception ee)
+            {
+                return -1;
+            }
         }
 
         public int GetMaxZoom()
         {
-            var zoom = from z in RangeDescriptors
-                       where z.TilePresent
-                       orderby z.Zoom 
-                       group z by z.Zoom into zz
-                       select zz.Max(z => z.Zoom);
+            try
+            {
+                var zoom = from z in RangeDescriptors
+                           where z.TilePresent
+                           orderby z.Zoom
+                           group z by z.Zoom into zz
+                           select zz.Max(z => z.Zoom);
 
-            int rd = zoom.Last();
-            return zoom.Last();
+                int rd = zoom.Last();
+                return zoom.Last();
+            }
+            catch(Exception ee)
+            {
+                return -1;
+            }
         }
 
         public String GetCenter()
         {
-            return String.Format("{0:0.####},{1:0.####},{2}", MapRectangle.SW.lon - MapRectangle.NE.lon,
-                MapRectangle.NE.lat - MapRectangle.SW.lat,
-                GetMaxZoom() - GetMinZoom());
+            int z = GetMinZoom() + ((GetMaxZoom() - GetMinZoom()) / 2);
+            double lon = MapRectangle.SW.lon + ((MapRectangle.NE.lon - MapRectangle.SW.lon) / 2);
+            double lat = MapRectangle.SW.lat + ((MapRectangle.NE.lat - MapRectangle.SW.lat) / 2);
+
+            return String.Format("{0},{1},{2}", 
+                lon.ToString("0.####", System.Globalization.CultureInfo.InvariantCulture), 
+                lat.ToString("0.####", System.Globalization.CultureInfo.InvariantCulture), 
+                z);
         }
     }
 }

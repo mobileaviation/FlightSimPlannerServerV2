@@ -16,11 +16,13 @@ namespace FSPServerV2.Maps.MapChruncher
         public List<Layer> LayerList { get; set; }
         public String basePath { get; set; }
 
-        public void LoadFromFile(String filename)
+        public Boolean LoadFromFile(String filename)
         {
             XDocument mapChruncherDoc = XDocument.Load(filename);
-            LayerList = LayersFactory.BuildLayers(mapChruncherDoc);
             basePath = Path.GetDirectoryName(filename);
+            LayerList = LayersFactory.BuildLayers(mapChruncherDoc, basePath);
+
+            return (LayerList == null) ? false : true;
         }
     }
 }

@@ -33,6 +33,7 @@
             this.MapsListBox = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.SaveMBTilesFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.exportProgressBar = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
             // 
             // SaveBtn
@@ -83,6 +84,14 @@
             this.SaveMBTilesFileDialog.DefaultExt = "mbtiles";
             this.SaveMBTilesFileDialog.Title = "Save MBTiles File";
             // 
+            // exportProgressBar
+            // 
+            this.exportProgressBar.Location = new System.Drawing.Point(18, 372);
+            this.exportProgressBar.Name = "exportProgressBar";
+            this.exportProgressBar.Size = new System.Drawing.Size(302, 23);
+            this.exportProgressBar.TabIndex = 4;
+            this.exportProgressBar.Visible = false;
+            // 
             // ExportToMBTilesForm
             // 
             this.AcceptButton = this.SaveBtn;
@@ -90,6 +99,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.CancelBtn;
             this.ClientSize = new System.Drawing.Size(340, 450);
+            this.Controls.Add(this.exportProgressBar);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.MapsListBox);
             this.Controls.Add(this.CancelBtn);
@@ -110,5 +120,6 @@
         private System.Windows.Forms.ListBox MapsListBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.SaveFileDialog SaveMBTilesFileDialog;
+        private System.Windows.Forms.ProgressBar exportProgressBar;
     }
 }
