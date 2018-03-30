@@ -125,20 +125,7 @@ namespace FSPServerV2.FormApp
 
         }
 
-        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
-
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
-        {
-
-        }
+        private Layers layers;
 
         private void readMapChruncherToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -146,18 +133,34 @@ namespace FSPServerV2.FormApp
             if (result == DialogResult.OK) // Test result.
             {
                 String filename = OpenMapChruncherXMLDialog.FileName;
-                Layers layers = new Layers();
+                layers = new Layers();
                 if (layers.LoadFromFile(filename))
                 {
-                    ExportToMBTilesForm exportForm = new ExportToMBTilesForm();
-                    exportForm.Layers = layers;
-                    exportForm.ShowDialog();
+                    MessageBox.Show(String.Format("Loaded {0} layers from MapChruncherMetadata.xml.", layers.LayerList.Count())
+                    , "Success!!");
+                    exportToMBTilesFileToolStripMenuItem.Enabled = (layers.LayerList.Count() > 0);
                 }
                 else
                 {
                     MessageBox.Show("Error loading MapChruncherMetadata.xml. Maybe version mismatch.", "Error!!");
                 }
             }
+        }
+
+        private void exportToMBTilesFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (layers != null)
+            {
+                ExportToMBTilesForm exportForm = new ExportToMBTilesForm();
+                exportForm.Layers = layers;
+                exportForm.ShowDialog();
+            }
+        }
+
+        private void quitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            close = true;
+            Application.Exit();
         }
     }
 }

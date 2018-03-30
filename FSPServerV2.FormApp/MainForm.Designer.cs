@@ -48,6 +48,7 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenMapChruncherXMLDialog = new System.Windows.Forms.OpenFileDialog();
+            this.exportToMBTilesFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -168,6 +169,7 @@
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.readMapChruncherToolStripMenuItem,
+            this.exportToMBTilesFileToolStripMenuItem,
             this.toolStripMenuItem1,
             this.quitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
@@ -191,13 +193,21 @@
             this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
             this.quitToolStripMenuItem.Size = new System.Drawing.Size(257, 22);
             this.quitToolStripMenuItem.Text = "Quit";
+            this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
             // 
             // OpenMapChruncherXMLDialog
             // 
             this.OpenMapChruncherXMLDialog.DefaultExt = "xml";
             this.OpenMapChruncherXMLDialog.Filter = "XML FIles|*.xml";
             this.OpenMapChruncherXMLDialog.Title = "Open MapChruncherMetadata.xml";
-            this.OpenMapChruncherXMLDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog1_FileOk);
+            // 
+            // exportToMBTilesFileToolStripMenuItem
+            // 
+            this.exportToMBTilesFileToolStripMenuItem.Enabled = false;
+            this.exportToMBTilesFileToolStripMenuItem.Name = "exportToMBTilesFileToolStripMenuItem";
+            this.exportToMBTilesFileToolStripMenuItem.Size = new System.Drawing.Size(257, 22);
+            this.exportToMBTilesFileToolStripMenuItem.Text = "Export to MBTiles file";
+            this.exportToMBTilesFileToolStripMenuItem.Click += new System.EventHandler(this.exportToMBTilesFileToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -249,6 +259,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem quitToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog OpenMapChruncherXMLDialog;
+        private System.Windows.Forms.ToolStripMenuItem exportToMBTilesFileToolStripMenuItem;
     }
 }
 

@@ -1,6 +1,8 @@
 ﻿using Microsoft.Owin.FileSystems;
 using Microsoft.Owin.StaticFiles;
 using Owin;
+using System.Collections.Specialized;
+using System.Configuration;
 using System.Web.Http;
 
 namespace FSPServerV2
@@ -21,7 +23,9 @@ namespace FSPServerV2
                 defaults: new { id = RouteParameter.Optional }
             );
 
-            var physicalFileSystem = new PhysicalFileSystem(@"D:\maps\renders");
+            string path = ConfigurationManager.AppSettings.Get("MBTilesPath");
+
+            var physicalFileSystem = new PhysicalFileSystem(path);
             var options = new FileServerOptions
             {
                 EnableDefaultFiles = true,
