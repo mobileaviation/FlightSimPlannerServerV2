@@ -87,16 +87,19 @@
   <ItemGroup>
     <Compile Include="ConnectionTest.cs" />
     <Compile Include="Controllers\ConnectController.cs" />
+    <Compile Include="Controllers\ListFilesController.cs" />
     <Compile Include="Controllers\OffsetsController.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\VersionController.cs" />
     <Compile Include="Helpers\FSPFSUIPCConnection.cs" />
     <Compile Include="Helpers\OffsetHelpers.cs" />
     <Compile Include="Models\ConnectResponse.cs" />
+    <Compile Include="Models\FileResponse.cs" />
     <Compile Include="Models\FSPOffsets.cs" />
     <Compile Include="Models\FSUIPCConnect.cs" />
     <Compile Include="Models\OffsetRequest.cs" />
     <Compile Include="Models\OffsetResponse.cs" />
+    <Compile Include="Models\VersionResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Version.cs" />
     <Compile Include="ServerTest.cs" />

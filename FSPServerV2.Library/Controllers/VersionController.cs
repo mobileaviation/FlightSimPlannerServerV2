@@ -1,6 +1,9 @@
-﻿using System;
+﻿using FSPServerV2.Library.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
@@ -17,9 +20,9 @@ namespace FSPServerV2.Library.Controllers
 
         [HttpGet]
         [Route("version")]
-        public String Get()
+        public HttpResponseMessage Get()
         {
-            return Properties.Version.getVersion();
+            return Request.CreateResponse(HttpStatusCode.OK, new VersionResponse(Properties.Version.getVersion()));
         }
     }
 }
