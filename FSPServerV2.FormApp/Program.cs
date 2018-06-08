@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Principal;
 using System.Threading;
@@ -22,6 +23,7 @@ namespace FSPServerV2.FormApp
             Application.SetCompatibleTextRenderingDefault(false);
             MainForm form = new MainForm();
 
+            //string path = Path.GetDirectoryName(Application.ExecutablePath) + @"\Data";
 
             if (IsAdministrator())
             {

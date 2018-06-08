@@ -1,6 +1,7 @@
 ﻿using Microsoft.Owin.Hosting;
 using NLog;
 using System;
+using System.Configuration;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,6 @@ namespace FSPServerV2.FormApp
             Logger log = LogManager.GetCurrentClassLogger();
             try
             {
-                
                 log.Info("Starting FSUIPC WebAPI Console App");
 
                 Int32 port = Properties.Settings.Default.Port;
