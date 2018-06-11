@@ -1,16 +1,13 @@
 ﻿using FSPServerV2.Library;
 using FSPServerV2.Maps.MapChruncher;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Configuration;
 using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Xml.Linq;
+using System.IO;
 
 namespace FSPServerV2.FormApp
 {
@@ -35,6 +32,17 @@ namespace FSPServerV2.FormApp
 
             IPAddressTextBox.Text = (add.Count() > 0) ? add.ElementAt(0).ToString() : "Unknown!!";
             tcpPortTextBox.Text = Properties.Settings.Default.Port.ToString();
+
+            string path = ConfigurationManager.AppSettings.Get("MBTilesPath");
+
+            if (path == null)
+            {
+                var conf = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                path = Path.GetDirectoryName(conf.FilePath) + @"\maps";
+                storePathInConfig(path);
+            }
+
+            localPathEdit.Text = ConfigurationManager.AppSettings.Get("MBTilesPath");
 
             CheckConnection();
         }
@@ -68,6 +76,17 @@ namespace FSPServerV2.FormApp
                 }
                 
             }
+        }
+
+        private void storePathInConfig(String newpath)
+        {
+            var conf = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            var settings = conf.AppSettings.Settings;
+            if (ConfigurationManager.AppSettings.Get("MBTilesPath") != null)
+                settings.Remove("MBTilesPath");
+            settings.Add("MBTilesPath", newpath);
+            conf.Save(ConfigurationSaveMode.Modified);
+            ConfigurationManager.RefreshSection(conf.AppSettings.SectionInformation.Name);
         }
 
         private void statusToolStripMenuItem_Click(object sender, EventArgs e)
@@ -152,6 +171,7 @@ namespace FSPServerV2.FormApp
             if (layers != null)
             {
                 ExportToMBTilesForm exportForm = new ExportToMBTilesForm();
+                exportForm.basePath = ConfigurationManager.AppSettings.Get("MBTilesPath");
                 exportForm.Layers = layers;
                 exportForm.ShowDialog();
             }
@@ -161,6 +181,23 @@ namespace FSPServerV2.FormApp
         {
             close = true;
             Application.Exit();
+        }
+
+        private void setLocalPathToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            localFolderDialog.SelectedPath = ConfigurationManager.AppSettings.Get("MBTilesPath");
+            if (localFolderDialog.ShowDialog()==DialogResult.OK)
+            {
+                String newPath = localFolderDialog.SelectedPath;
+                storePathInConfig(newPath);
+                localPathEdit.Text = newPath;
+                MessageBox.Show("Restart the Server for the new Path to take effect!");
+            }
+        }
+
+        private void folderBrowserDialog1_HelpRequest(object sender, EventArgs e)
+        {
+            
         }
     }
 }

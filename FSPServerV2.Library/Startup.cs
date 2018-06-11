@@ -28,18 +28,7 @@ namespace FSPServerV2
             string path = "";
 
             path = ConfigurationManager.AppSettings.Get("MBTilesPath");
-            if (path == null)
-            {
-                var conf = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                path =  Path.GetDirectoryName(conf.FilePath) + @"\maps";
-                var settings = conf.AppSettings.Settings;
-                settings.Add("MBTilesPath", path);
-                conf.Save(ConfigurationSaveMode.Modified);
-                ConfigurationManager.RefreshSection(conf.AppSettings.SectionInformation.Name);
-            }
-
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
-
 
             var physicalFileSystem = new PhysicalFileSystem(path);
             var options = new FileServerOptions

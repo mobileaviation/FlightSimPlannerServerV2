@@ -47,12 +47,13 @@
             this.readMapChruncherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToMBTilesFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.setLocalPathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenMapChruncherXMLDialog = new System.Windows.Forms.OpenFileDialog();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.setLocalPathToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.localPathEdit = new System.Windows.Forms.TextBox();
+            this.localFolderDialog = new System.Windows.Forms.FolderBrowserDialog();
             this.contextMenuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
@@ -105,6 +106,7 @@
             this.IPAddressTextBox.Enabled = false;
             this.IPAddressTextBox.Location = new System.Drawing.Point(104, 68);
             this.IPAddressTextBox.Name = "IPAddressTextBox";
+            this.IPAddressTextBox.ReadOnly = true;
             this.IPAddressTextBox.Size = new System.Drawing.Size(167, 20);
             this.IPAddressTextBox.TabIndex = 2;
             // 
@@ -140,6 +142,7 @@
             this.tcpPortTextBox.Enabled = false;
             this.tcpPortTextBox.Location = new System.Drawing.Point(105, 94);
             this.tcpPortTextBox.Name = "tcpPortTextBox";
+            this.tcpPortTextBox.ReadOnly = true;
             this.tcpPortTextBox.Size = new System.Drawing.Size(43, 20);
             this.tcpPortTextBox.TabIndex = 7;
             // 
@@ -167,7 +170,7 @@
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(289, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(287, 24);
             this.menuStrip1.TabIndex = 9;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -204,6 +207,18 @@
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(254, 6);
             // 
+            // setLocalPathToolStripMenuItem
+            // 
+            this.setLocalPathToolStripMenuItem.Name = "setLocalPathToolStripMenuItem";
+            this.setLocalPathToolStripMenuItem.Size = new System.Drawing.Size(257, 22);
+            this.setLocalPathToolStripMenuItem.Text = "Set Local Path";
+            this.setLocalPathToolStripMenuItem.Click += new System.EventHandler(this.setLocalPathToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(254, 6);
+            // 
             // quitToolStripMenuItem
             // 
             this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
@@ -226,31 +241,25 @@
             this.label3.TabIndex = 10;
             this.label3.Text = "Local Path:";
             // 
-            // textBox1
+            // localPathEdit
             // 
-            this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(104, 42);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(167, 20);
-            this.textBox1.TabIndex = 11;
+            this.localPathEdit.Enabled = false;
+            this.localPathEdit.Location = new System.Drawing.Point(104, 42);
+            this.localPathEdit.Name = "localPathEdit";
+            this.localPathEdit.ReadOnly = true;
+            this.localPathEdit.Size = new System.Drawing.Size(167, 20);
+            this.localPathEdit.TabIndex = 11;
             // 
-            // setLocalPathToolStripMenuItem
+            // localFolderDialog
             // 
-            this.setLocalPathToolStripMenuItem.Name = "setLocalPathToolStripMenuItem";
-            this.setLocalPathToolStripMenuItem.Size = new System.Drawing.Size(257, 22);
-            this.setLocalPathToolStripMenuItem.Text = "Set Local Path";
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(254, 6);
+            this.localFolderDialog.HelpRequest += new System.EventHandler(this.folderBrowserDialog1_HelpRequest);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(289, 272);
-            this.Controls.Add(this.textBox1);
+            this.ClientSize = new System.Drawing.Size(287, 272);
+            this.Controls.Add(this.localPathEdit);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.panel1);
@@ -301,7 +310,8 @@
         private System.Windows.Forms.ToolStripMenuItem setLocalPathToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox localPathEdit;
+        private System.Windows.Forms.FolderBrowserDialog localFolderDialog;
     }
 }
 

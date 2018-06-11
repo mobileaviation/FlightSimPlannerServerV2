@@ -13,6 +13,7 @@ namespace FSPServerV2.FormApp
         }
 
         public Layers Layers { get; set; }
+        public String basePath { get; set; }
 
         private void ExportToMBTilesForm_Shown(object sender, EventArgs e)
         {
@@ -24,7 +25,7 @@ namespace FSPServerV2.FormApp
             if (MapsListBox.SelectedItem is Layer)
             {
                 Layer layer = (Layer)MapsListBox.SelectedItem;
-                SaveMBTilesFileDialog.FileName = layer.ReferenceName + ".mbtiles";
+                SaveMBTilesFileDialog.FileName = basePath + @"\" + layer.ReferenceName + ".mbtiles";
                 DialogResult result = SaveMBTilesFileDialog.ShowDialog();
                 if (result == DialogResult.OK) // Test result.
                 {

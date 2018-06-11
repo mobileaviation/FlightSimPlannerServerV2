@@ -10,7 +10,7 @@ namespace FSPServerV2.Library.Properties
     {
         public static string getVersion()
         {
-            return "2.0.0.2";
+            return "2.0.0.3";
         }
 
     }
