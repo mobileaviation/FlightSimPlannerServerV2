@@ -85,7 +85,7 @@ namespace FSPServerV2.Maps.MapChruncher
                     rangeDescriptor.TileX = x;
                     rangeDescriptor.TileY = (int)Math.Round(yy) - y;
                     rangeDescriptor.Zoom = z;
-                    rangeDescriptor.QuadTreeLocation = Convert.ToInt64(key);
+                    rangeDescriptor.QuadTreeLocation = key;
                     layer.RangeDescriptors.Add(rangeDescriptor);
                 }
 

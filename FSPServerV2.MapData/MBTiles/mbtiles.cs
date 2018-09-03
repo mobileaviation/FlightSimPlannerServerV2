@@ -109,7 +109,9 @@ namespace FSPServerV2.Maps.MBTiles
                     {
                         if (progressEvent != null) progressEvent(this, layer.RangeDescriptors.Count, tile++);
 
-                        String tileFilename = path + descriptor.QuadTreeLocation.ToString() + ext;
+                        //String key = "000000000" + descriptor.QuadTreeLocation;
+                        //key = key.Substring(key.Length - descriptor.Zoom);
+                        String tileFilename = path + descriptor.QuadTreeLocation + ext;
                         if (File.Exists(tileFilename))
                         {
                             byte[] imgByteArr = geImageArray(tileFilename);

@@ -14,7 +14,7 @@ namespace FSPServerV2.Maps.MapChruncher
         public int TileX { get; set; }
         public int TileY { get; set; }
         public int Zoom { get; set; }
-        public long QuadTreeLocation { get; set; }
+        public String QuadTreeLocation { get; set; }
         public Boolean TilePresent { get; set; }
     }
 }
